@@ -1,6 +1,8 @@
 #!/usr/bin/zsh
 source ~/repos/scripts/util/exportColors
 
+# DELETE THIS COMMENT
+
 # Change this if you fork the repo
 AUTHOR="Zack Fleischman <zFleischman@gmail.com>"
 
