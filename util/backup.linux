@@ -1,5 +1,4 @@
-#!/usr/bin/zsh
-source ~/repos/scripts/util/exportColors
+#source ~/repos/scripts/util/exportColors
 
 # Change this if you fork the repo
 AUTHOR="Zack Fleischman <zFleischman@gmail.com>"
@@ -26,16 +25,16 @@ then
     then
         echo "${Cyan}Everything already backed up.${Reset}"
     else
-        echo "Pushing local commits to origin/master..."
+        echo "${BWhite}Pushing local commits to origin/master...${Reset}"
         git push origin master
-        echo "Done pushing to master."
+        echo "${BWhite}Done pushing to master.${Reset}"
     fi
 else
     git --no-pager diff --cached --name-only | awk '{ printf "Backing up: %s\n", $1 }'
     echo ""
     git commit --author="$AUTHOR" -m "$commitMessage"
     git push origin master
-    echo "Done pushing to master."
+    echo "${BWhite}Done pushing to master.${Reset}"
 fi
 
 
@@ -55,16 +54,16 @@ then
     then
         echo "${Cyan}Everything already backed up.${Reset}"
     else
-        echo "Pushing local commits to origin/master..."
+        echo "${BWhite}Pushing local commits to origin/master...${Reset}"
         git push origin master
-        echo "Done pushing to master."
+        echo "${BWhite}Done pushing to master.${Reset}"
     fi
 else
     git --no-pager diff --cached --name-only | awk '{ printf "Backing up: %s\n", $1 }'
     echo ""
     git commit --author="$AUTHOR" -m "$commitMessage"
     git push origin master
-    echo "Done pushing to master."
+    echo "${BWhite}Done pushing to master.${Reset}"
 fi
 
 
@@ -73,4 +72,4 @@ echo "${Green}----------------${Reset}"
 echo "${Green}Backup Complete!${Reset}"
 echo "${Green}----------------${Reset}"
 echo ""
-popd > /dev/null
+p!/usr/bin/zsh

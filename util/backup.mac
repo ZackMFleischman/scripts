@@ -26,16 +26,16 @@ then
     then
         echo "${Cyan}Everything already backed up.${Reset}"
     else
-        echo "Pushing local commits to origin/master..."
+        echo "${BWhite}Pushing local commits to origin/master...${Reset}"
         git push origin master
-        echo "Done pushing to master."
+        echo "${BWhite}Done pushing to master.${Reset}"
     fi
 else
     git --no-pager diff --cached --name-only | awk '{ printf "Backing up: %s\n", $1 }'
     echo ""
     git commit --author="$AUTHOR" -m "$commitMessage"
     git push origin master
-    echo "Done pushing to master."
+    echo "${BWhite}Done pushing to master.${Reset}"
 fi
 
 
@@ -55,16 +55,16 @@ then
     then
         echo "${Cyan}Everything already backed up.${Reset}"
     else
-        echo "Pushing local commits to origin/master..."
+        echo "${BWhite}Pushing local commits to origin/master...${Reset}"
         git push origin master
-        echo "Done pushing to master."
+        echo "${BWhite}Done pushing to master.${Reset}"
     fi
 else
     git --no-pager diff --cached --name-only | awk '{ printf "Backing up: %s\n", $1 }'
     echo ""
     git commit --author="$AUTHOR" -m "$commitMessage"
     git push origin master
-    echo "Done pushing to master."
+    echo "${BWhite}Done pushing to master.${Reset}"
 fi
 
 
