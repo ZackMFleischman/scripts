@@ -1,8 +1,6 @@
 #!/usr/bin/zsh
 source ~/repos/scripts/util/exportColors
 
-# DELETE THIS COMMENT
-
 # Change this if you fork the repo
 AUTHOR="Zack Fleischman <zFleischman@gmail.com>"
 
@@ -23,12 +21,21 @@ git add :/
 DIRTY="$(git diff --shortstat 2> /dev/null | tail -n1)$(git diff --cached --shortstat 2> /dev/null | tail -n1)"
 if [ "$DIRTY" "==" "" ]
 then
-    echo "${Cyan}Everything already backed up.${Reset}"
+    AHEAD_OF_ORIGIN="$(git rev-list @{u}..)"
+    if [ "$AHEAD_OF_ORIGIN" "==" "" ]
+    then
+        echo "${Cyan}Everything already backed up.${Reset}"
+    else
+        echo "Pushing local commits to origin/master..."
+        git push origin master
+        echo "Done pushing to master."
+    fi
 else
     git --no-pager diff --cached --name-only | awk '{ printf "Backing up: %s\n", $1 }'
     echo ""
     git commit --author="$AUTHOR" -m "$commitMessage"
     git push origin master
+    echo "Done pushing to master."
 fi
 
 
@@ -43,12 +50,21 @@ git add :/
 DIRTY="$(git diff --shortstat 2> /dev/null | tail -n1)$(git diff --cached --shortstat 2> /dev/null | tail -n1)"
 if [ "$DIRTY" "==" "" ]
 then
-    echo "${Cyan}Everything already backed up.${Reset}"
+    AHEAD_OF_ORIGIN="$(git rev-list @{u}..)"
+    if [ "$AHEAD_OF_ORIGIN" "==" "" ]
+    then
+        echo "${Cyan}Everything already backed up.${Reset}"
+    else
+        echo "Pushing local commits to origin/master..."
+        git push origin master
+        echo "Done pushing to master."
+    fi
 else
     git --no-pager diff --cached --name-only | awk '{ printf "Backing up: %s\n", $1 }'
     echo ""
     git commit --author="$AUTHOR" -m "$commitMessage"
     git push origin master
+    echo "Done pushing to master."
 fi
 
 
