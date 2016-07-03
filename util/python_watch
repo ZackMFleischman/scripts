@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Runs the given python program, and re-runs it each time the file is saved.
+# Takes a single python file as a parameter.
+#
+# NOTE: fswatch is an OSX specific file monitoring program!
+
+run_python ()
+{
+    echo ""
+    echo "======================================"
+    echo "File change detected! Running again..."
+    echo "======================================"
+    python $1
+}
+export -f run_python
+
+python $1
+fswatch -0 $1 | xargs -0 -n 1 -I {} bash -c 'run_python {}'
