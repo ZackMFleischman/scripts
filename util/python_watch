@@ -3,17 +3,37 @@
 # Runs the given python program, and re-runs it each time the file is saved.
 # Takes a single python file as a parameter.
 #
+# Alternatively, it will take a directory of individual python programs
+# and monitor each file for changes and execute each program as it changes.
+#
 # NOTE: fswatch is an OSX specific file monitoring program!
+
+dump_as_equals()
+{
+    len=${#1}
+    while [[ len -gt 0 ]]; do
+        printf "="
+        (( len = $len - 1 ))
+    done
+    printf "\n"
+}
+export -f dump_as_equals
+
+surround_in_equals ()
+{
+    dump_as_equals "$1"
+    echo $1
+    dump_as_equals "$1"
+}
+export -f surround_in_equals
 
 run_python ()
 {
     echo ""
-    echo "======================================"
-    echo "File change detected! Running again..."
-    echo "======================================"
+    surround_in_equals "Change detected! Running '$(basename $1)'..."
     python $1
 }
 export -f run_python
 
-python $1
+python $1 2> /dev/null
 fswatch -0 $1 | xargs -0 -n 1 -I {} bash -c 'run_python {}'
