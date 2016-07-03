@@ -8,6 +8,10 @@
 #
 # NOTE: fswatch is an OSX specific file monitoring program!
 
+# Verify we have fswatch installed.
+ensure_brew fswatch
+
+# Dump '======' as long as the passed in string.
 dump_as_equals()
 {
     len=${#1}
@@ -30,7 +34,7 @@ export -f surround_in_equals
 run_python ()
 {
     echo ""
-    surround_in_equals "Change detected! Running '$(basename $1)'..."
+    surround_in_equals "'$(basename $1)' changed! Executing again..."
     python $1
 }
 export -f run_python
