@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Uses jsctags to generate a tags file for JS files that vim can parse.
+find . -type f -iregex ".*\.js$" -not -path "./node_modules/*" -exec jsctags {} -f \; | sed '/^$/d' | sort > tags
