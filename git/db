@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#
+# File: db (Delete Branch)
+# Description:
+#       Deletes both the local and remote copy of a branch
+#
+
+echo "Deleting local branch..."
+git branch -D $1
+echo "Deleting remote branch..."
+git push origin --delete $1
