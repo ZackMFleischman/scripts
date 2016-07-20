@@ -1,0 +1,7 @@
+#!/bin/bash
+# Returns the number of bytes in a file or stream.
+if [ $# -eq 0 ]; then
+    wc -w <&0 | awkc 1
+else
+    wc -w $1 | awkc 1
+fi
