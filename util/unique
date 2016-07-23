@@ -1,0 +1,11 @@
+#!/bin/bash
+# Reads from file or std in
+last=""
+while read line
+do
+    if [ "$last" != "$line" ]
+    then
+        echo "$line"
+        last=$line
+    fi
+done < "${1:-/dev/stdin}"
