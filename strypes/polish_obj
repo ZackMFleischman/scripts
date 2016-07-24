@@ -1,9 +1,0 @@
-#!/bin/bash
-
-if [ $# -eq 1 ]
-then
-    cat $1 | sed "s:__.*$::" | sed "/^mtllib/d" > /tmp/tmp.obj
-    mv /tmp/tmp.obj $1
-else
-    echo "USAGE: polish_obj [path/to/obj/file.obj]"
-fi
