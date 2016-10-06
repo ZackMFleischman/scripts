@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Prints the nth line given.
+# If no number is given, it will prepend numbers to the front of output.
+
+if [ $# -eq 1 ]
+then
+    line=$1
+    pChar="p"
+
+    arg=$line$pChar
+    sed -n $arg
+else
+    nl -ba -nln
+fi

@@ -1,0 +1,11 @@
+#!/bin/bash
+# Edits the nth file from git status --short
+
+if [ $# -eq 1 ]
+then
+    git status --short | awkc 2 | pick $1 | xargs -o vim
+else
+    git status --short | nl -ba
+fi
+
+
