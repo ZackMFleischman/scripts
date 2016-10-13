@@ -2,7 +2,7 @@
 source ~/repos/scripts/util/exportColors
 
 # Change this if you fork the repo
-AUTHOR="Zack Fleischman <zFleischman@gmail.com>"
+AUTHOR="Zack M Fleischman <ZackMFleischman@gmail.com>"
 
 commitMessage="[Backup Script]"
 if [ $# -eq 1 ]
