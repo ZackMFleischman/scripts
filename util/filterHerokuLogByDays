@@ -1,0 +1,35 @@
+#!/usr/bin/python
+#
+# Script: filterHerokuLogByDays.py
+#
+# This script takes a single integer as a paremeter which is the number of days
+# we wish to filter the Heroku logs back by.
+
+# It accepts a Heroku log line from stdin with the format:
+#   2016-11-02T20:15:31.270612+00:00 heroku[web.1]: Idling
+#
+# e.g.
+# If this log occurred 4 days ago and you run the script with 4 or less as a parameter then
+# the script will re-print it, otherwise it will eat the line.
+
+import sys
+from datetime import datetime, timedelta
+from dateutil.parser import parse
+
+onlyPrintIfWithinInThisManyDays = -1
+if len(sys.argv) > 1:
+    onlyPrintIfWithinInThisManyDays = int(sys.argv[1])
+
+# 2016-11-02T20:15:31.270612+00:00 heroku[web.1]: Idling
+for line in sys.stdin:
+    if onlyPrintIfWithinInThisManyDays == -1:
+        print(line)
+
+    timestamp = parse(line.split()[0])
+    pst_timestamp = timestamp.replace(tzinfo=None) - timedelta(hours=7)
+    now = datetime.now().replace(tzinfo=None)
+    timeDelta = (now - pst_timestamp)
+    daysSinceTimestamp = timeDelta.days
+
+    if (daysSinceTimestamp <= onlyPrintIfWithinInThisManyDays):
+        print(line)
