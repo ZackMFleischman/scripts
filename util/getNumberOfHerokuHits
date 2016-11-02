@@ -3,4 +3,4 @@
 # Relies on the filterHerokuLogsByHours script elsewhere in this directory
 
 # Return number of Heroku Root Level Get Requests
-heroku logs -n 1500 | filterHerokuLogsByHours $1 | grep 'method=GET path="/"' | wc -l | awk '{ print $1 }'
+heroku logs -n 1500 | ~/repos/scripts/util/filterHerokuLogByHours $1 | grep 'method=GET path="/"' | wc -l | awk '{ print $1 }'
