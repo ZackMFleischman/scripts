@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Repeats the passed comands every second.
+# Can change this with -s or -m and provide seconds/minutes
+# between loop iterations.
+
 DELAY=1
 
 while [[ $# -gt 1 ]]
@@ -7,10 +11,18 @@ do
     key="$1"
 
     case $key in
-        -d|--delay)
+        -s|--seconds)
         DELAY="$2"
         shift
         shift
+        break
+        ;;
+
+        -m|--minutes)
+        DELAY=$(($2 * 60))
+        shift
+        shift
+        break
         ;;
 
         *)
