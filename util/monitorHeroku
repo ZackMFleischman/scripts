@@ -1,0 +1,14 @@
+#!/bin/bash
+
+numHitsBeforeGrowl=10
+if [ $# -eq 1 ]
+then
+    numHitsBeforeGrowl=$1
+fi
+
+# Sends a growl notification if heroku hits in the past hour were greater than the passed parameter
+hitsThisHour=$(~/repos/scripts/util/getNumberOfHerokuHits 1)
+echo Hits within last hour: $hitsThisHour
+if [[ $hitsThisHour -gt $numHitsBeforeGrowl ]]
+    then ~/repos/scripts/osx/growl "People be lookin at your shit"
+fi
