@@ -1,5 +1,6 @@
 #!/bin/bash
 # Waits until the passed in server is back up, then sends a text message that it is so
 until ping -c1 $1 &>/dev/null; do :; done
-echo "$1 is live"
+email "$1 is live"
 txt "$1 is live"
+echo "$1 is live"
