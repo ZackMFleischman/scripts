@@ -1,4 +1,6 @@
 #!/bin/sh
+
+# Dumps the git log minus all the Merge commits.
 branch=
 num=-20
 if [ $# -eq 1 ]
