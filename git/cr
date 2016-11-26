@@ -1,0 +1,4 @@
+#!/bin/bash
+# Checkout and track remote branch from origin
+echo "git checkout -t origin/$1"
+git checkout -t origin/$1
