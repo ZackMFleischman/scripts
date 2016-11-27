@@ -1,4 +1,6 @@
 #!/bin/bash
-# Checkout and track remote branch from origin
-echo "git checkout -t origin/$1"
+
+# Checkout and track remote branch from origin (accepts the form 'origin/branch' or just 'branch')
+branch=$(echo $1 | sed -e "s:^origin/::")
+echo "git checkout -t origin/$branch"
 git checkout -t origin/$1
