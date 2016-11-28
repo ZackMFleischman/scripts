@@ -1,0 +1,11 @@
+#!/bin/sh
+# Delete the branch corresponding to the branch number that is a result of the 'b' script
+# This ALSO delete's the remote branch too.
+if [ $# -eq 1 ]
+    then
+        choice=$1
+        pchar=p
+        git branch | sed -n $choice$pchar | sed 's/\*//g' | awk '{ print $1 }' | xargs db
+fi
+
+

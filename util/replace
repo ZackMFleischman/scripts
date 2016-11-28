@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Find and replace text within files according to a regex
+#
+# @param 1: Regex of the form 's/find/replace/'
+# @param [rest]: List of files to perform the find and replace with. 
+#                e.g. $(git ls-files), *, *.js, etc.
+sed -i '' $@
