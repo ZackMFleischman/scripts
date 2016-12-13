@@ -6,7 +6,13 @@
 #       Deletes both the local and remote copy of a branch
 #
 
-echo "Deleting local branch..."
-git branch -D $1
-echo "Deleting remote branch..."
-git push origin --delete $1
+read -r -p "You sure you wanna delete $1? [y/n] " response
+if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]
+then
+    echo "Deleting local branch..."
+    git branch -D $1
+    echo "Deleting remote branch..."
+    git push origin --delete $1
+else
+    echo "Canceling...Didn't delete shit"
+fi

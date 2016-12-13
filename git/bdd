@@ -5,7 +5,17 @@ if [ $# -eq 1 ]
     then
         choice=$1
         pchar=p
-        git branch | sed -n $choice$pchar | sed 's/\*//g' | awk '{ print $1 }' | xargs db
+        branch=$(git branch | sed -n $choice$pchar | sed 's/\*//g' | awk '{ print $1 }')
+
+        read -r -p "You sure you wanna delete '$branch'? [y/n] " response
+        if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]
+        then
+            git branch -D $branch
+            echo "Deleting 'origin/$branch'..."
+            git push origin --delete $branch
+        else
+            echo "Canceling...Didn't delete shit"
+        fi
 fi
 
 
