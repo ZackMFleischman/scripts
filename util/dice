@@ -1,0 +1,17 @@
+#!/usr/local/bin/python
+import random
+
+# Spits out a d3 roll if you press enter, or you can enter what number of dice you want to roll
+while True:
+    num_dice = 3
+
+    try:
+        num_dice = int(raw_input("Number of dice? "))
+    except ValueError:
+        pass
+
+    if (num_dice < 1):
+        num_dice = 3
+
+    print("d" + str(num_dice) + " roll: " + str(random.randint(num_dice, num_dice*6)))
+    print("")
