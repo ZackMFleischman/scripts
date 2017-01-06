@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Find file recursively from current directory
+if [ $# -eq 1 ]
+then
+    find . -iname "*$1*" -not -path "*/node_modules/*" -not -path "*/.git/*" | grep --color=always '[^\/]*$' | nl
+elif [ $# -eq 2 ]
+then
+    line=$2
+    vim $(find . -iname "*$1*" -not -path "*/node_modules/*" -not -path "*/.git/*" | sed -n "$line p")
+fi
