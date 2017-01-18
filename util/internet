@@ -4,3 +4,4 @@ until ping -c1 google.com &>/dev/null; do :; done
 email "Internet is back up"
 txt "Internet is back up"
 echo "Internet is back up"
+growl "Internet is back up"
