@@ -13,5 +13,9 @@ while True:
     if (num_dice < 1):
         num_dice = 3
 
-    print("d" + str(num_dice) + " roll: " + str(random.randint(num_dice, num_dice*6)))
+    dice_rolls = []
+    for i in range(num_dice):
+        dice_rolls.append(random.randint(1, 6))
+
+    print("d" + str(num_dice) + " roll: " + (str(dice_rolls) + " = " if len(dice_rolls) > 1 else "") + str(sum(dice_rolls)))
     print("")
