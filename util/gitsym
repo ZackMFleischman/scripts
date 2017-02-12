@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Creates a symlink of the git project at '/'
+# (Used for shortening file paths when using The Silver Searcher in Vim)
+
+PROJECT_ROOT=$(git rev-parse --show-toplevel)
+BASENAME="/$(basename $PROJECT_ROOT)"
+
+sudo ln -sfn $PROJECT_ROOT $BASENAME
+echo "Created symlink for '$PROJECT_ROOT' at '$BASENAME'"
