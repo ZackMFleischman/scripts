@@ -7,9 +7,15 @@ if [ $# -eq 0 ]
 fi
 if [ $# -eq 1 ]
     then
-        choice=$1
-        pchar=p
-        git branch | sed -n $choice$pchar | sed 's/\*//g' | awk '{ print $1 }' | xargs git checkout 
+        re='[a-zA-M]'
+        if [[ "$1" =~ $re ]]; then
+            echo "Branches starting with $1:"
+            git branch --color=always | nl | grep -i "^[[:space:]]*[0-9]*[[:space:]]*$1"
+        else
+            choice=$1
+            pchar=p
+            git branch | sed -n $choice$pchar | sed 's/\*//g' | awk '{ print $1 }' | xargs git checkout 
+        fi
 fi
 
 
