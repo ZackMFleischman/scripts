@@ -1,11 +1,20 @@
-#!/bin/bash
-# Reads from file or std in
-last=""
-while read line
-do
-    if [ "$last" != "$line" ]
-    then
-        echo "$line"
-        last=$line
-    fi
-done < "${1:-/dev/stdin}"
+#!/usr/local/bin/python3
+import sys
+
+lines = list()
+lineSet = set()
+
+if (len(sys.argv) > 1):
+    with open(sys.argv[1], 'r') as handle:
+        for line in handle.readlines():
+            if (line not in lineSet):
+                lines.append(line)
+                lineSet.add(line)
+else:
+    for line in sys.stdin:
+        if (line not in lineSet):
+            lines.append(line)
+            lineSet.add(line)
+
+for line in lines:
+    print (line[0:-1])

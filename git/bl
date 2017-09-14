@@ -1,0 +1,23 @@
+#!/bin/sh
+# Show git branches in this repo.
+# If passed a number, switch to that correspoding branch
+if [ $# -eq 0 ]
+    then
+        git branch --color=always | nl
+fi
+if [ $# -eq 1 ]
+    then
+        re='[a-zA-M]'
+        if [[ "$1" == "d" ]]; then
+            git checkout develop
+        elif [[ "$1" =~ $re ]]; then
+            echo "Branches starting with $1:"
+            git branch --color=always | nl | grep -i --color=always "$1"
+        else
+            choice=$1
+            pchar=p
+            git branch | sed -n $choice$pchar | sed 's/\*//g' | awk '{ print $1 }' | xargs git checkout 
+        fi
+fi
+
+
