@@ -10,7 +10,7 @@ if [ $# -eq 1 ]; then
 
     if [[ "$1" == "d" ]]; then
         git checkout develop
-    if [[ "$1" == "m" ]]; then
+    elif [[ "$1" == "m" ]]; then
         git checkout master
     elif [[ "$1" =~ $re ]]; then
         echo "Branches starting with $1:"
