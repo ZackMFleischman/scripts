@@ -2,7 +2,7 @@
 
 if [ $# -eq 0 ]
 then
-    git reflog | grep "checkout:" | awkc 8 | unique | head | nl
+    git reflog | grep "checkout:" | awkc 8 | unique | head -20 | nl
 fi
 
 if [ $# -eq 1 ]; then
@@ -10,12 +10,10 @@ if [ $# -eq 1 ]; then
 
     if [[ "$1" == "d" ]]; then
         git checkout develop
-    if [[ "$1" == "m" ]]; then
-        git checkout master
     elif [[ "$1" =~ $re ]]; then
         echo "Branches starting with $1:"
-        b | grep -i --color=always "$1"
+        b2 | grep -i --color=always "$1"
     else
-        b | sed -n ${1}p | awkc 2 | xargs git checkout
+        b2 | sed -n ${1}p | awkc 2 | xargs git checkout
     fi
 fi

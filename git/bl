@@ -10,13 +10,13 @@ if [ $# -eq 1 ]
         re='[a-zA-M]'
         if [[ "$1" == "d" ]]; then
             git checkout develop
+        if [[ "$1" == "m" ]]; then
+            git checkout master
         elif [[ "$1" =~ $re ]]; then
             echo "Branches starting with $1:"
             git branch --color=always | nl | grep -i --color=always "$1"
         else
-            choice=$1
-            pchar=p
-            git branch | sed -n $choice$pchar | sed 's/\*//g' | awk '{ print $1 }' | xargs git checkout 
+            git branch | sed -n ${1}p | sed 's/\*//g' | awk '{ print $1 }' | xargs git checkout 
         fi
 fi
 
