@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Diff a specific change or range of changes
+# Give it a commit
+
+if [ $# -eq 0 ]
+    then
+        git diff --color=always HEAD
+elif [ $# -eq 1 ] 
+    then
+        carrot=^
+        git diff --color=always $1$carrot $1
+elif [ $# -eq 2 ] 
+    then
+        git diff --color=always $1 $2
+fi
