@@ -69,7 +69,7 @@ function dumpRedditImagesToHTMLFile()
 
 
 # HTML Header
-echo "<html><head><title>Reddit Images for: $1</title></head><body><h1 align="center">$header</h1><div style=\"display: flex; flex-wrap: wrap; align-items: center\">" > $htmlFile
+echo "<html><head><title>Reddit Images for: $1</title></head><body><h1 align=\"center\">$header</h1><div style=\"display: flex; flex-wrap: wrap; align-items: center\">" > $htmlFile
 
 # First Page
 if [ $maxPages -gt 1 ]; then
