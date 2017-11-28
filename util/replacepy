@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Find and replace text in all the python files of this git project that aren't in the lib folder
+sed -i '' $1 $(git ls-files | grep .py)
