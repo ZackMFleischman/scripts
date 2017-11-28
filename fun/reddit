@@ -87,6 +87,7 @@ do
         dumpRedditImagesToHTMLFile "${query}&after=$after"
     else
         echo "No more pages found!"
+        break
     fi
     page=$(($page + 1)) # Bump the counter
 done
