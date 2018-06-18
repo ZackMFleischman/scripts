@@ -1,0 +1,42 @@
+#!/bin/bash
+# This script changes branches simultaneously in the tool and tool_assets repo
+
+PATH_TO_TOOL_REPO=~/repos/strypes/tool
+PATH_TO_TOOL_ASSETS_REPO=~/repos/strypes/tool_assets
+
+cd $PATH_TO_TOOL_REPO
+
+if [ $# -eq 0 ]
+then
+    # 'bt' without any parameters list the 10 last used branches
+    git reflog | grep "checkout:" | awk '{ print $8 }' | unique | head | nl
+fi
+
+if [ $# -eq 1 ]; then
+    re='[a-zA-M]'
+
+    if [[ "$1" == "d" ]]; then
+        # 'bt d' to switch to `develop`
+        git checkout develop
+        $(cd $PATH_TO_TOOL_ASSETS_REPO;git checkout develop)
+    elif [[ "$1" == "m" ]]; then
+        # 'bt m' to switch to `master`
+        git checkout master
+        $(cd $PATH_TO_TOOL_ASSETS_REPO;git checkout master)
+    elif [[ "$1" =~ $re ]]; then
+        # 'bt search_term' to list branches that have "search_term" in their name
+        echo "Branches starting with $1:"
+        b | grep -i --color=always "$1"
+    else
+        # 'bt <number>' switches to the nth last used branch in both branches.
+        BRANCH=$(bt | sed -n ${1}p | awk '{ print $2 }')
+        echo "Switching branch in tool..."
+        git checkout $BRANCH
+
+        echo ""
+        echo "Switching branch in tool_assets..."
+
+        cd $PATH_TO_TOOL_ASSETS_REPO
+        git checkout $BRANCH
+    fi
+fi

@@ -1,0 +1,2 @@
+#!/usr/local/bin/bash
+find ~/Dropbox/TV/Futurama -name "*.*" | sed -e 's:^:\":' -e 's:$:\":' | gshuf -n 1 | xargs open > /dev/null
