@@ -13,30 +13,25 @@ then
 fi
 
 if [ $# -eq 1 ]; then
-    re='[a-zA-M]'
-
     if [[ "$1" == "d" ]]; then
         # 'bt d' to switch to `develop`
-        git checkout develop
-        $(cd $PATH_TO_TOOL_ASSETS_REPO;git checkout develop)
+        BRANCH=develop
     elif [[ "$1" == "m" ]]; then
         # 'bt m' to switch to `master`
-        git checkout master
-        $(cd $PATH_TO_TOOL_ASSETS_REPO;git checkout master)
-    elif [[ "$1" =~ $re ]]; then
-        # 'bt search_term' to list branches that have "search_term" in their name
-        echo "Branches starting with $1:"
-        b | grep -i --color=always "$1"
+        BRANCH=master
+    elif [[ "$1" == "l" ]]; then
+        # 'bt l' to last branch used
+        BRANCH=$(bt | sed -n 2p | awk '{ print $2 }')
     else
         # 'bt <number>' switches to the nth last used branch in both branches.
         BRANCH=$(bt | sed -n ${1}p | awk '{ print $2 }')
-        echo "Switching branch in tool..."
-        git checkout $BRANCH
-
-        echo ""
-        echo "Switching branch in tool_assets..."
-
-        cd $PATH_TO_TOOL_ASSETS_REPO
-        git checkout $BRANCH
     fi
+
+    echo "Switching branch in tool..."
+    git checkout $BRANCH
+
+    echo ""
+    echo "Switching branch in tool_assets..."
+    cd $PATH_TO_TOOL_ASSETS_REPO
+    git checkout $BRANCH
 fi
