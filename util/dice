@@ -2,11 +2,11 @@
 import random
 
 # Spits out a d3 roll if you press enter, or you can enter what number of dice you want to roll
-while True:
-    num_dice = 3
+num_dice = 3
 
+while True:
     try:
-        num_dice = int(raw_input("Number of dice? "))
+        num_dice = int(input("Number of dice? (default: " + str(num_dice) + ") "))
     except ValueError:
         pass
 
