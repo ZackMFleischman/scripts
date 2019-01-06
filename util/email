@@ -1,22 +1,78 @@
-#!/bin/bash
+#!/usr/local/bin/python
+import sys
+import argparse
+import smtplib
+from email.mime.text import MIMEText
+import email.utils
 
-txtline () {
-    echo -n "$@" | sendemail -f "ZackFleischmanBot@gmail.com" -u "[Script]" -t "zfleischman@gmail.com" -s "smtp.gmail.com:587" -o tls=yes -xu "zackfleischmanbot@gmail.com" -xp "F0cusN33dsF0cus" > /dev/null
-}
+# Sends an email from my Gmail account using `smtplib`
+# Can read the body from standard in or as an argument.
 
-txtfile () {
-    sendemail -f "ZackFleischmanBot@gmail.com" -u "[Script]" -t "zfleischman@gmail.com" -s "smtp.gmail.com:587" -o tls=yes -xu "zackfleischmanbot@gmail.com" -xp "F0cusN33dsF0cus" -o message-file="$1" > /dev/null
-}
+myName = 'Zack M Fleischman'
+myEmail = 'zFleischman@gmail.com'
+myPasswordFile = '/Users/zack/.gmail'
 
-if [ $# -eq 1 ]
-then
-    txtline $1
-else
-    echo -n > /tmp/txtmessage
-    while read line
-    do
-        echo $line >> /tmp/txtmessage
-    done < "/dev/stdin"
-    txtfile /tmp/txtmessage
-    rm /tmp/txtmessage
-fi
+parser = argparse.ArgumentParser(description='Send an email from ' + myEmail + '. Separate multiple email addresses with commas.')
+parser.add_argument("-s", "--subject", help="Subject of the Email", type=str, default="[No Subject]")
+parser.add_argument("-t", "--to", help="To Address(es) of the Email", type=str, default=myEmail)
+parser.add_argument("--cc", help="CC Address(es) of the Email", type=str)
+parser.add_argument("--bcc", help="CC Address(es) of the Email", type=str)
+parser.add_argument("-b", "--body", help="Body of the Email (reads from std-in if omitted)", type=str)
+args = parser.parse_args()
+
+# Support reading from STD-IN if we don't supply a BODY
+args_body = args.body
+if args_body is None:
+    args_body = ""
+    for line in sys.stdin:
+        args_body = args_body + line
+
+
+def getGmailServer():
+    try:
+        server = smtplib.SMTP_SSL('smtp.gmail.com')
+        server.ehlo()
+        server.login(myEmail, getGmailPassword())
+        return server
+    except:
+        print("Couldn't log on to gmail...")
+
+
+def getGmailPassword():
+    try:
+        with open(myPasswordFile) as f:
+            return f.readline()
+    except:
+        print("Couldn't get password from file: " + myPasswordFile)
+
+
+def sendEmail(subject, body, to=[], cc=[], bcc=[]):
+    message = MIMEText(body)
+    message['From'] = email.utils.formataddr((myName, myEmail))
+    message['To'] = ','.join(to)
+    message['CC'] = ','.join(cc)
+    message['BCC'] = ','.join(bcc)
+    message['Subject'] = subject
+
+    recipients = to + cc + bcc
+
+    server = getGmailServer()
+    server.sendmail(myEmail, recipients, message.as_string())
+    server.close()
+
+    print("TO: " + ", ".join(to))
+    if (len(cc) > 0):
+        print("CC: " + ", ".join(cc))
+    if (len(bcc) > 0):
+        print("BCC: " + ", ".join(bcc))
+    print("SUBJECT: " + subject)
+    print("============ BODY ==========")
+    print(body)
+    print("============================")
+
+
+sendEmail(args.subject,
+          args_body,
+          args.to.split(","),
+          args.cc.split(",") if args.cc is not None else [],
+          args.bcc.split(",") if args.bcc is not None else [])
