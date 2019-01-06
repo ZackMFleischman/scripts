@@ -15,9 +15,9 @@ myPasswordFile = '/Users/zack/.gmail'
 parser = argparse.ArgumentParser(description='Send an email from ' + myEmail + '. Separate multiple email addresses with commas.')
 parser.add_argument("-s", "--subject", help="Subject of the Email", type=str, default="")
 parser.add_argument("-t", "--to", help="To Address(es) of the Email", type=str, default=myEmail)
-parser.add_argument("--cc", help="CC Address(es) of the Email", type=str)
-parser.add_argument("--bcc", help="BCC Address(es) of the Email", type=str)
-parser.add_argument("-b", "--body", help="Body of the Email (reads from std-in if omitted)", type=str)
+parser.add_argument("-c", "--cc", help="CC Address(es) of the Email", type=str)
+parser.add_argument("-b", "--bcc", help="BCC Address(es) of the Email", type=str)
+parser.add_argument("body", nargs="?", help="Body of the Email (reads from std-in if omitted)", type=str)
 args = parser.parse_args()
 
 # Support reading from STD-IN if we don't supply a BODY

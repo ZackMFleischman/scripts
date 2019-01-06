@@ -3,8 +3,8 @@ myTextMessageEmailAddress="4156968432@vzwpix.com"
 
 if [ $# -eq 1 ]
 then
-    email -t $myTextMessageEmailAddress -b "$1"
+    email -t $myTextMessageEmailAddress "$1"
 else
     standardInput=`cat`
-    email -t $myTextMessageEmailAddress -b "$standardInput" 
+    email -t $myTextMessageEmailAddress "$standardInput" 
 fi
