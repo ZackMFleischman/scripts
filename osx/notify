@@ -1,6 +1,6 @@
 #!/bin/bash
 
-title="Sir, I'm finished."
+title="Done!"
 msg=""
 
 if [ $# -eq 1 ]
@@ -9,4 +9,4 @@ if [ $# -eq 1 ]
 fi
 
 terminal-notifier -title "$title" -message "$msg"
-say -v Vicki "$title"
+say "$title"
