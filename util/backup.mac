@@ -1,4 +1,4 @@
-#!/usr/local/bin/zsh
+#!/bin/zsh
 source ~/repos/scripts/util/exportColors
 
 # Change this if you fork the repo
