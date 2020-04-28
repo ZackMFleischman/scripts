@@ -1,12 +1,25 @@
 #!/bin/bash
 
 title="Done!"
-msg=""
 
-if [ $# -eq 1 ]
+if [ $# -gt 0 ]
     then
-        msg=$1
+        title=$1
 fi
 
-terminal-notifier -title "$title" -message "$msg"
+if [ $# -eq 2 ]
+    then
+        echo "Waiting $2 minutes..."
+        sleepTimeMinutes=$(( 60*$2 ))
+        sleep "$sleepTimeMinutes"
+fi
+
+if [ $# -eq 3 ]
+    then
+        echo "Waiting $2 seconds..."
+        sleep "$2"
+fi
+
+
+terminal-notifier -title "$title" -message ''
 say "$title"
