@@ -1,2 +1,8 @@
 #!/bin/bash
-sed -i '' 's/"restore":.*$/"restore": "$1"/' ~/repos/front/settings/local.json
+
+if [ "$1" != "snapshot" ] && [ "$1" != "prepare" ] && [ "$1" != "demo" ]
+then
+    echo 'Enter either restore, snapshot, or demo as the 1st arg'
+else
+    sed -i '' "s/\"restore\":.*$/\"restore\": \"$1\"/" ~/repos/front/settings/local.json
+fi

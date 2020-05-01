@@ -2,6 +2,7 @@
 # Run the correct test command based on which repo we're in
 workingDirectory=${PWD##*/} 
 if [ "$workingDirectory" == "front-client" ]; then
+    #yarn run test
     yarn run test
 else
     npm run test
