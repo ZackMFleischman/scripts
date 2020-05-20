@@ -1,25 +1,51 @@
 #!/bin/bash
+#
+# NOTE: Use via the alias n='notify $?' to feed in the return code of the last run command.
+# 
+# USAGE:
+#   n                   -> Immediately says "Finished" and pops system notification unless the previous command failed, in which case its says "Failed".
+#   n "some string"     -> Replaces "Finished" with "some string"
+#   n "some string" 5   -> Waits for 5 minutes before normal behavior. Meant to be used on its own, so it disregards to return code of previous command.
+#   n "some string" 5 s -> Waits for 5 seconds before normal behavior. Meant to be used on its own, so it disregards to return code of previous command.
+#
 
-title="Done!"
+title="Finished!"
+returnCode=0
 
 if [ $# -gt 0 ]
     then
-        title=$1
+        returnCode=$1
 fi
 
-if [ $# -eq 2 ]
+if [ $# -gt 1 ]
     then
-        echo "Waiting $2 minutes..."
-        sleepTimeMinutes=$(( 60*$2 ))
-        sleep "$sleepTimeMinutes"
+        title=$2
+fi
+
+if [ $# -gt 2 ]
+    then
+        # Using with a time delay, so screw whatever was last run.
+        returnCode=0
 fi
 
 if [ $# -eq 3 ]
     then
-        echo "Waiting $2 seconds..."
-        sleep "$2"
+        echo "Waiting $3 minutes..."
+        sleepTimeMinutes=$(( 60*$3 ))
+        sleep "$sleepTimeMinutes"
 fi
 
+if [ $# -eq 4 ]
+    then
+        echo "Waiting $3 seconds..."
+        sleep "$3"
+fi
+
+
+if [ $returnCode -ne 0 ]
+    then
+        title='Failed!'
+fi
 
 terminal-notifier -title "$title" -message ''
 say "$title"

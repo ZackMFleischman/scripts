@@ -1,0 +1,3 @@
+#!/bin/bash
+
+gunzip -c ~/repos/front/front-snapshot.json.gz
