@@ -1,8 +1,28 @@
 #!/bin/bash
+#
+# Usage: restore show|prepare|demo|snapshot
 
-if [ "$1" != "snapshot" ] && [ "$1" != "prepare" ] && [ "$1" != "demo" ]
+FRONT_REPO=~/repos/front
+
+function usage {
+    echo "Usage: restore show|prepare|demo|snapshot"
+    echo "  - show:     Displays current setting."
+    echo "  - prepare:  Configure to setup relatively empty repo"
+    echo "  - demo:     Configure to setup demo repo"
+    echo "  - snapshot: Configure to setup repo from snapshot at 'front/front-snapshot.json.gz'"
+    exit
+}
+
+if [ "$1" == "help" ] || [ "$1" == "-h" ] || [ "$1" == "--help" ]
 then
-    echo 'Enter either restore, snapshot, or demo as the 1st arg'
+    usage
+elif [ "$1" == "show" ]
+then
+    cat $FRONT_REPO/settings/local.json | grep restore | awk '{ print $2 }' | tr -d "\""
+    exit 0
+elif [ "$1" == "snapshot" ] || [ "$1" == "prepare" ] || [ "$1" == "demo" ]
+then
+    sed -i '' "s/\"restore\":.*$/\"restore\": \"$1\"/" $FRONT_REPO/settings/local.json
 else
-    sed -i '' "s/\"restore\":.*$/\"restore\": \"$1\"/" ~/repos/front/settings/local.json
+    usage
 fi
