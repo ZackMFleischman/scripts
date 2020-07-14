@@ -14,5 +14,5 @@ if [ $# -eq 2 ]
         msg=$2
 fi
 
-growlnotify -m "$msg" -t "$title"
+terminal-notifier -message "$msg" -title "$title"
 #say -v Vicki "$title, $msg"

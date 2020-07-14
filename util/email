@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/usr/bin/python
 import sys
 import argparse
 import smtplib
@@ -11,6 +11,7 @@ import email.utils
 myName = 'Zack M Fleischman'
 myEmail = 'zFleischman@gmail.com'
 myPasswordFile = '/Users/zack/.gmail'
+myPasswordFile2 = '/Users/zackfleishman/.gmail'
 
 parser = argparse.ArgumentParser(description='Send an email from ' + myEmail + '. Separate multiple email addresses with commas.')
 parser.add_argument("-s", "--subject", help="Subject of the Email", type=str, default="")
@@ -43,7 +44,11 @@ def getGmailPassword():
         with open(myPasswordFile) as f:
             return f.readline()
     except:
-        print("Couldn't get password from file: " + myPasswordFile)
+        try: 
+            with open(myPasswordFile2) as f:
+                return f.readline()
+        except:
+            print("Couldn't get password from files: " + myPasswordFile + " or " + myPasswordFile2)
 
 
 def sendEmail(subject, body, to=[], cc=[], bcc=[]):
