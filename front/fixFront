@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Grab sudo privelages at the beginning.
+[ "$UID" -eq 0 ] || exec sudo "$0" "$@"
+
+# Ensure we're using the right version of node. Mac upgrades fuck with this.
+echo 'Installing node 12.1...'
+source ~/.nvm/nvm.sh;
+nvm install 12.1
+echo
+
+# Reinstall command line tools
+echo 'Reinstalling xcode command line tools...'
+sudo rm -rf $(xcode-select --print-path)
+xcode-select --install
+read -n 1 -s -r -p "Press any key once command line tools are finished installing...";echo
+echo
+
+# Reinstall node modules
+echo 'Reinstalling front node_modules...'
+cd ~/repos/front
+rm -rf node_modules
+npm install
+echo
+
+pop "Ok, done fixing all the broken crap. Give it another crack!"
+echo 'Ok, done fixing all the broken crap. Give it another crack!'

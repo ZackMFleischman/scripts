@@ -1,0 +1,4 @@
+#!/bin/bash
+[ "$UID" -eq 0 ] || exec sudo "$0" "$@" && echo -n "sudo bash what: "
+read WHAT
+sudo $WHAT

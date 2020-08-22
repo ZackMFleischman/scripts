@@ -1,0 +1,6 @@
+#!/bin/bash
+#
+# USAGE:
+#   pops'hello world'   --> Pops system notification with 'Hello World'
+
+terminal-notifier -title "$1" -message ''

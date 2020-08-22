@@ -1,3 +1,10 @@
 #!/bin/bash
 
-yarn test $@;~/repos/scripts/osx/notify_silent $?
+message="Tests Succeeded"
+
+if [ $# -gt 0 ]
+    then
+        message="Tests Succeeded: $@"
+fi
+
+yarn test $@;~/repos/scripts/osx/notify_silent $? "$message"
