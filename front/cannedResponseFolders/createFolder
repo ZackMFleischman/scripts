@@ -1,0 +1,20 @@
+#!/bin/bash
+
+company=$1
+name=$2
+
+data="{\"name\":\"$2\"}"
+
+if [ $# -ge 3 ] 
+    then
+        data="{\"name\":\"$2\",\"parent_folder_id\":$3}"
+fi
+
+curl --request POST http://127.0.0.1:7000/api/1/companies/$company/namespaces/tea:1/canned_answer_folders  \
+  -H 'Connection: keep-alive' \
+  -H 'Accept: application/json, text/plain, */*' \
+  -H 'x-front-xsrf: nltD4VXE-JiInrdhm6M11Th8dfTrPGa_1Oy0' \
+  -H 'Content-Type: application/json;charset=UTF-8' \
+  -H 'Accept-Language: en-US,en;q=0.9' \
+  -H 'Cookie: front.csrf=nltD4VXE-JiInrdhm6M11Th8dfTrPGa_1Oy0; io=_e6hiphtKgkkLBPoAAAC; front.id=eyJjc3JmU2VjcmV0IjoiVWNMNGpoTTByQlVsZ0tKck0xQVl6eVl0Iiwic2lkIjoiODFiY2QyZTY5MGUzNmJiYzA2M2U1YWE0OWZlZDlkZWMiLCJwYXNzcG9ydCI6eyJ1c2VyIjp7ImVtYWlsIjoiZGVtb0Bmcm9udGFwcC5jb20iLCJpZCI6MSwiaW1wZXJzb25hdGVNb2RlIjpmYWxzZSwiaW1wZXJzb25hdGVkQnkiOm51bGwsImVudiI6ImRldiIsImQiOjE1OTc4ODY3NjM1OTB9fSwibGFzdFJlcXVlc3QiOjE1OTgzMTg5MjAwMTB9; front.id.sig=K0nTaCyUxp3H78KolGW_TPDw5Rw' \
+  --data-binary $data

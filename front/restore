@@ -13,13 +13,22 @@ function usage {
     exit
 }
 
+function show {
+    cat $FRONT_REPO/settings/local.json | grep restore | awk '{ print $2 }' | tr -d "\""
+    exit 0
+}
+
+if [ $# -eq 0 ]
+then
+    show
+fi
+
 if [ "$1" == "help" ] || [ "$1" == "-h" ] || [ "$1" == "--help" ]
 then
     usage
 elif [ "$1" == "show" ]
 then
-    cat $FRONT_REPO/settings/local.json | grep restore | awk '{ print $2 }' | tr -d "\""
-    exit 0
+    show
 elif [ "$1" == "snapshot" ] || [ "$1" == "prepare" ] || [ "$1" == "demo" ]
 then
     sed -i '' "s/\"restore\":.*$/\"restore\": \"$1\"/" $FRONT_REPO/settings/local.json

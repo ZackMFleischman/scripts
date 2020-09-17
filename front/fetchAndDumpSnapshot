@@ -1,0 +1,2 @@
+#!/bin/bash
+fetchSnapshot && dumpSnapshot || echo 'Failed! Is `npm run start` running?'

@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# $1 is the company id
+
+createFolder $1 TestFolder1
+createFolder $1 TestFolder2
+createFolder $1 TestFolder3
+createFolder $1 TestFolder4
+createFolder $1 TestFolder5
+
+# TestFolder1's child folders
+createFolder $1 TestFolder6_1 1
+createFolder $1 TestFolder7_1 1
+createFolder $1 TestFolder8_1 1
+
+# TestFolder6_1's child folders
+createFolder $1 TestFolder9_1_6 6
+createFolder $1 TestFolder10_1_6 6
+createFolder $1 TestFolder11_1_6 6
+
+# TestFolder5's child folders
+createFolder $1 TestFolder12_5 5
+createFolder $1 TestFolder10_5 5
+createFolder $1 TestFolder11_5 5

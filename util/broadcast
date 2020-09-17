@@ -1,0 +1,5 @@
+#!/bin/bash
+email "$1" > /dev/null
+text "$1" > /dev/null
+echo "$1"
+growl "$1"

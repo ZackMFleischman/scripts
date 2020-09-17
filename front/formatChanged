@@ -1,0 +1,4 @@
+#!/bin/bash
+changedFiles=$(git diff --name-only master |  grep -E '(\.js|\.jsx|\.tsx|\.ts)' | tr '\n' ' ')
+prettier $changedFiles --write
+eslint  $changedFiles --fix
