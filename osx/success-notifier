@@ -7,6 +7,9 @@
 #       or
 #   > long-running-command;n 'Label'
 
+red=$'\e[1;31m'
+command -v terminal-notifier >/dev/null 2>&1 || { echo -e >&2 "${red}I require \`terminal-notifier\` but it's not installed. Run \`brew install terminal-notifier\` and try again."; exit 1; }
+
 title='Success'
 returnCode=$1
 if [ $returnCode -ne 0 ]
