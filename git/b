@@ -1,8 +1,7 @@
 #!/bin/bash
-
 if [ $# -eq 0 ]
 then
-    git reflog | grep "checkout:" | awkc 8 | unique | head | nl
+    git reflog | grep "checkout:" | awk '{ print $8 }' | awk '!a[$0]++' | head | nl
 fi
 
 if [ $# -eq 1 ]; then
@@ -16,6 +15,6 @@ if [ $# -eq 1 ]; then
         echo "Branches starting with $1:"
         b | grep -i --color=always "$1"
     else
-        b | sed -n ${1}p | awkc 2 | xargs git checkout
+        b | sed -n ${1}p | awk '{ print $2 }' | xargs git checkout
     fi
 fi
