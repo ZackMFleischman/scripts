@@ -1,0 +1,7 @@
+#!/bin/bash
+# Waits until the internet is back up and then sends a text/email/echo
+echo "Waiting for the internets to come back..."
+until ping -c1 google.com &>/dev/null; do :; done
+growl "Internet is back up"
+say "Internet is back up"
+echo "Internet is back up"

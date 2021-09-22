@@ -1,0 +1,16 @@
+#!/bin/bash
+aws-vault exec prod
+ec2s=$(
+aws ec2 describe-instances --query 'Reservations[*].Instances[*][PrivateIpAddress, InstanceId, PublicIpAddress, Tags[?Key==\`Deploy_Namespace\`] | [0].Value, Tags[?Key==\`Name\`] | [0].Value]' --output text | sort
+)
+echo $ec2s
+
+instanceid=$(echo $ec2s | grep worker.monolith.production.us-east-1.asg | cut -f 2 | head -n 1)
+
+if [ -z "$instanceid" ]
+then
+  echo "Could not find InstanceId for production sidekiq instance"
+else
+  echo "Found InstanceId for production sidekiq to be $instanceid"
+  aws-vault exec prod -- aws ssm start-session --target $instanceid
+fi
