@@ -1,0 +1,9 @@
+#!/bin/bash
+
+b d
+git pull
+
+link=$(pbpaste)
+ticket=$(echo ${link##*/})
+
+nb zack.${ticket}.$1
