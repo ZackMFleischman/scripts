@@ -2,9 +2,9 @@
 
 #
 # File: db (Delete Branch)
-# Description:
-#       Deletes both the local and remote copy of a branch
-#
+# Description: Deletes both the local and remote copy of a branch
+# 
+# Usage: db branchName
 
 read -r -p "You sure you wanna delete $1? [y/n] " response
 if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]
@@ -14,5 +14,5 @@ then
     echo "Deleting remote branch..."
     git push origin --delete $1
 else
-    echo "Canceling...Didn't delete shit"
+    echo "Canceling...Didn't delete anything"
 fi

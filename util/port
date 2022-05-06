@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "Processes using port :$1"
+echo ""
+lsof -i :$1 

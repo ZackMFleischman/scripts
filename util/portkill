@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo "Killing these processes:"
+echo "------------------------"
+lsof -i :$1 
+lsof -i :$1 | tail -n +2 | awkc 2 | unique | xargs -L1 kill -9

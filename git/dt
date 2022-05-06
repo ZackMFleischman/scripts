@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Difftool a specific change or range of changes
 # Give it a commit

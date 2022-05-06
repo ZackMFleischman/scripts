@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# USAGE:
+#   pop 'hello world'   --> Pops system notification with 'Hello World'
+
+msg="Done!"
+
+if [ $# -eq 1 ]
+then
+    msg="$1"
+fi
+
+terminal-notifier -title "$msg" -message ''

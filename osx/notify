@@ -44,7 +44,7 @@ fi
 
 if [ $returnCode -ne 0 ]
     then
-        title='Failed!'
+        title='Good try mate!'
 fi
 
 pop "$title"
